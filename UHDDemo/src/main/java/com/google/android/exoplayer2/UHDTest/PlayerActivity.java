@@ -839,7 +839,7 @@ public class PlayerActivity extends Activity implements OnClickListener, ExoPlay
     double estimatedBandwidth = BANDWIDTH_METER.getBitrateEstimate();
     double estimatedBandwidthJitter = BANDWIDTH_METER.getBitrateJitterEstimate();
 
-    Log.d(TAG_PLAY,"Estimated Bandwidth : " + estimatedBandwidth);
+    //Log.d(TAG_PLAY,"Estimated Bandwidth : " + estimatedBandwidth);
 
     currentTimeInfo = currentPosition;
 
