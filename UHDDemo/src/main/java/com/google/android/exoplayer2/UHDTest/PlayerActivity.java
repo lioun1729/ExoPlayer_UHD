@@ -817,7 +817,7 @@ public class PlayerActivity extends Activity implements OnClickListener, ExoPlay
   ////////// Current for LifeMedia Monitor Servlet //////////
   ////////// Must Change to Other Servlet //////////
   public void sendCurrentPosition() {
-    Log.d(TAG,"sendCurrentPosition");
+    //Log.d(TAG,"sendCurrentPosition");
 
     /*String ProxyURL = getServerURL("ProxyURL");
     String ProxyPort = getServerURL("ProxyPort");*/
