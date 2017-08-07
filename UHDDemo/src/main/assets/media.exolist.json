@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Contents",
+    "samples": [
+      {
+        "name": "Tech News (LifeMedia)",
+        "uri": "http://223.194.33.67/Contents/54a47fe6a44331b6be6d43df92df89c1.mpd",
+        "extension": "mpd"
+      },
+
+      {
+        "name": "ChromeCast Ultra (4K)",
+        "uri": "http://223.194.33.67/Contents/2.mpd",
+        "extension": "mpd"
+      }
+
+    ]
+  }
+]
