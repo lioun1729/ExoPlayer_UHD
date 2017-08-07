@@ -195,10 +195,10 @@ public class PlayerActivity extends Activity implements OnClickListener, ExoPlay
   private String proxyAddress;
   private String proxyPort;
 
-  private int stallingCount;
-  private double stallingStartTime;
-  private double stallingEndTime;
-  private double stallingTime;
+  private int uhd_stallingCount;
+  private double uhd_stallingStartTime;
+  private double uhd_stallingEndTime;
+  private double uhd_stallingTime;
 
   // Activity lifecycle
 
@@ -236,10 +236,10 @@ public class PlayerActivity extends Activity implements OnClickListener, ExoPlay
     simpleExoPlayerView.setControllerVisibilityListener(this);
     simpleExoPlayerView.requestFocus();
 
-    stallingCount = 0;
-    stallingStartTime = 0;
-    stallingEndTime = 0;
-    stallingTime = 0;
+    uhd_stallingCount = 0;
+    uhd_stallingStartTime = 0;
+    uhd_stallingEndTime = 0;
+    uhd_stallingTime = 0;
 
   }
 
@@ -544,7 +544,7 @@ public class PlayerActivity extends Activity implements OnClickListener, ExoPlay
       case ExoPlayer.STATE_BUFFERING:
         Log.d(TAG,"STATE_BUFFERING");
         if(playerState.equals("start")){
-          stallingStartTime = System.currentTimeMillis();
+          uhd_stallingStartTime = System.currentTimeMillis();
           //Log.d(TAG, "Stalling Start Time : " + String.valueOf(stallingStartTime));
           stallingEvent = true;
           sendState("stalling");
@@ -589,9 +589,9 @@ public class PlayerActivity extends Activity implements OnClickListener, ExoPlay
           Log.d(TAG,"stalling");
           sendState("start");
           stallingEvent = false;
-          stallingCount++;
-          stallingEndTime = System.currentTimeMillis();
-          stallingTime = stallingEndTime - stallingStartTime;
+          uhd_stallingCount++;
+          uhd_stallingEndTime = System.currentTimeMillis();
+          uhd_stallingTime = uhd_stallingEndTime - uhd_stallingStartTime;
           //Log.d(TAG, "Stalling End Time : " + String.valueOf(stallingEndTime));
           //Log.d(TAG, "Stalling Time : " + String.valueOf(stallingEndTime - stallingStartTime));
         }
@@ -864,7 +864,7 @@ public class PlayerActivity extends Activity implements OnClickListener, ExoPlay
     double parseEstimatedBandwidth = Double.parseDouble(String.format("%.3f",(estimatedBandwidth / 1000000)));
     double parseEstimatedBandwidthJitter = Double.parseDouble(String.format("%.3f",(estimatedBandwidthJitter / 1000000)));
     double parseVideoDuration = Double.parseDouble(String.format("%.3f",(videoDuration / 1000)));
-    double parseStallingTime = Double.parseDouble(String.format("%.3f",(stallingTime / 1000)));
+    double parseStallingTime = Double.parseDouble(String.format("%.3f",(uhd_stallingTime / 1000)));
 
     requestHeader.put("X-LifeMedia-AndroidID", Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID));
     requestHeader.put("User-Agent", Util.getUserAgent(getApplicationContext(), "ExoPlayerDemo"));
@@ -880,7 +880,7 @@ public class PlayerActivity extends Activity implements OnClickListener, ExoPlay
     requestHeader.put("X-LifeMedia-BatteryPercent",String.valueOf(batteryPercent));
     requestHeader.put("X-LifeMedia-RequestURL", DefaultHttpDataSource.requestUrl.toString());
     requestHeader.put("X-LifeMedia-RequestByteRange", DefaultHttpDataSource.requestRange);
-    requestHeader.put("X-LifeMedia-StallingCount", String.valueOf(stallingCount));
+    requestHeader.put("X-LifeMedia-StallingCount", String.valueOf(uhd_stallingCount));
     requestHeader.put("X-LifeMedia-StallingTime", String.valueOf(parseStallingTime));
 
     //Log.d(TAG_PLAY,"Player State : " + playerState);
