@@ -180,8 +180,6 @@ public class DefaultDashChunkSource implements DashChunkSource {
     long bufferedDurationUs = previous != null ? (previous.endTimeUs - playbackPositionUs) : 0;
     trackSelection.updateSelectedTrack(bufferedDurationUs);
 
-    //Log.d("TestUHD", "Buffered Duation : " + (double)(bufferedDurationUs / 1000) / 1000);
-
     RepresentationHolder representationHolder =
         representationHolders[trackSelection.getSelectedIndex()];
 
@@ -258,7 +256,6 @@ public class DefaultDashChunkSource implements DashChunkSource {
         maxSegmentCount);
 
     Log.d("TestUHD", "SegmentNum : " + String.valueOf(segmentNum));
-    //Log.d("TestUHD", "MaxSegmentCount : " + String.valueOf(maxSegmentCount));
   }
 
   @Override
