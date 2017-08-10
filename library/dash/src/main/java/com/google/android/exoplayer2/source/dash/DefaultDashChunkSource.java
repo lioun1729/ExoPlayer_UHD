@@ -180,6 +180,8 @@ public class DefaultDashChunkSource implements DashChunkSource {
     long bufferedDurationUs = previous != null ? (previous.endTimeUs - playbackPositionUs) : 0;
     trackSelection.updateSelectedTrack(bufferedDurationUs);
 
+    //Log.d("TestUHD", "Buffered Duation : " + (double)(bufferedDurationUs / 1000) / 1000);
+
     RepresentationHolder representationHolder =
         representationHolders[trackSelection.getSelectedIndex()];
 
@@ -255,7 +257,7 @@ public class DefaultDashChunkSource implements DashChunkSource {
         trackSelection.getSelectionReason(), trackSelection.getSelectionData(), segmentNum,
         maxSegmentCount);
 
-    //Log.d("TestUHD", "SegmentNum : " + String.valueOf(segmentNum));
+    Log.d("TestUHD", "SegmentNum : " + String.valueOf(segmentNum));
     //Log.d("TestUHD", "MaxSegmentCount : " + String.valueOf(maxSegmentCount));
   }
 
@@ -275,6 +277,7 @@ public class DefaultDashChunkSource implements DashChunkSource {
         }
       }
     }
+    Log.d("TestUHD", "Chunk Length : " + String.valueOf((((double)(chunk.endTimeUs - chunk.startTimeUs) / 1000) / 1000)));
   }
 
   @Override
@@ -348,9 +351,13 @@ public class DefaultDashChunkSource implements DashChunkSource {
       long endTimeUs = representationHolder.getSegmentEndTimeUs(firstSegmentNum);
       DataSpec dataSpec = new DataSpec(segmentUri.resolveUri(baseUrl),
           segmentUri.start, segmentUri.length, representation.getCacheKey());
+
+      //Log.d("TestUHD", "Segment Length (s) : " + String.valueOf(((double)(endTimeUs - startTimeUs) / 1000) / 1000));
+
       return new SingleSampleMediaChunk(dataSource, dataSpec, trackFormat, trackSelectionReason,
           trackSelectionData, startTimeUs, endTimeUs, firstSegmentNum,
           representationHolder.trackType, trackFormat);
+
     } else {
       int segmentCount = 1;
       for (int i = 1; i < maxSegmentCount; i++) {
@@ -367,10 +374,14 @@ public class DefaultDashChunkSource implements DashChunkSource {
       DataSpec dataSpec = new DataSpec(segmentUri.resolveUri(baseUrl),
           segmentUri.start, segmentUri.length, representation.getCacheKey());
       long sampleOffsetUs = -representation.presentationTimeOffsetUs;
+
+      //Log.d("TestUHD", "Segment Length (s) : " + String.valueOf(((double)(endTimeUs - startTimeUs) / 1000) / 1000));
+
       return new ContainerMediaChunk(dataSource, dataSpec, trackFormat, trackSelectionReason,
           trackSelectionData, startTimeUs, endTimeUs, firstSegmentNum, segmentCount,
           sampleOffsetUs, representationHolder.extractorWrapper);
     }
+
   }
 
   // Protected classes.
